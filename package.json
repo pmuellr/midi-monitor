@@ -1,0 +1,27 @@
+{
+  "name": "midi-monitor",
+  "version": "1.0.0",
+  "description": "monitor the output of midi ports, and maybe input",
+  "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",
+  "license": "MIT",
+  "main": "midi-monitor.js",
+  "bin": {
+    "midi-monitor": "./midi-monitor.js"
+  },
+  "homepage": "https://github.com/pmuellr/midi-monitor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmuellr/midi-monitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pmuellr/midi-monitor/issues"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "midi": "^1.0.0",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0"
+  }
+}
