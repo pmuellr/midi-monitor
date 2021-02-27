@@ -1,6 +1,6 @@
 {
   "name": "midi-monitor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "monitor the output of midi ports, and maybe input",
   "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",
   "license": "MIT",
@@ -18,10 +18,12 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
+    "hexer": "^1.5.0",
     "midi": "^1.0.0",
     "minimist": "^1.2.5"
   },
   "devDependencies": {
+    "@types/node": "^14.14.31",
     "eslint": "^7.19.0"
   }
 }

@@ -38,6 +38,14 @@ installation
 changelog
 ================================================================================
 
+version 1.1.0 - 2021-02-27
+
+- actually support sysex, and now with a nice hex dump
+
+version 1.0.0 - 2021-02-??
+
+- shipped as 1.0
+
 version 0.0.1 - 2021-02-19
 
 - initial version, under active development

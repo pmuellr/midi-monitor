@@ -4,6 +4,7 @@
 /** @typedef { import('./lib/types').MidiPort } MidiPort */
 
 const chalk = require('chalk')
+const hexer = require('hexer')
 
 const { log } = require('./lib/log')
 const midiPort = require('./lib/midi-port')
@@ -97,9 +98,7 @@ function formatChannel(channel) {
 
 /** @type { (message: number[]) => { command: string, channel?: number } } */
 function getCommandChannel(message) {
-  const printableMessage = message.map(byte => 
-    byte.toString(16).toUpperCase().padStart(2, '0')
-  )
+  const printableMessage = hexer(Buffer.from(message))
   const [ status, data1 ] = message
   const status1 = (status & 0xF0)
   const status2 = (status & 0x0F)
@@ -120,7 +119,7 @@ function getCommandChannel(message) {
   if (status1 === 0xC0) command = `pcg ${p(1)}`
   if (status1 === 0xD0) command = `chp ${p(1)}`
   if (status1 === 0xE0) command = `pib ${short}`
-  if (status1 === 0xF0) command = `sys ${printableMessage}`
+  if (status1 === 0xF0) command = `sysex\n${printableMessage}`
 
   if (status1 === 0xF0) channel = undefined
 
@@ -135,7 +134,7 @@ function getCommandChannel(message) {
   }
 
   if (!command) {
-    command = `???  ${printableMessage}`
+    command = `???\n${printableMessage}`
     channel = undefined
   }
 
