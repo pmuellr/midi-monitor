@@ -38,6 +38,12 @@ installation
 changelog
 ================================================================================
 
+version 1.2.0 - 2021-04-11
+
+- CLI toggle for sysex, timing and active-sensing
+- better listing of ports
+- better listing of messages
+
 version 1.1.0 - 2021-02-27
 
 - actually support sysex, and now with a nice hex dump

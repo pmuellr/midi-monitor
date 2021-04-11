@@ -1,4 +1,12 @@
+export interface MidiPortOptions {
+  active: boolean;
+  sysex: boolean;
+  timing: boolean;
+}
+
 export interface CliParams {
+  opts: MidiPortOptions
+
   // actual midi device
   aMidiDevice?: string
 
@@ -20,4 +28,5 @@ export interface MidiPort {
 export interface CreateMidiPortsParams {
   name: string
   onMessage: OnMessage
+  opts: MidiPortOptions
 }
