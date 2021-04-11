@@ -38,6 +38,11 @@ installation
 changelog
 ================================================================================
 
+version 1.2.1 - 2021-04-11
+
+- made the CLI toggle for sysex, timing and active-sensing boolean options
+  for easier usage (combining after a single -)
+
 version 1.2.0 - 2021-04-11
 
 - CLI toggle for sysex, timing and active-sensing
