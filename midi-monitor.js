@@ -15,7 +15,8 @@ if (require.main === module) main()
 
 async function main() {
   const params = cliParams.getCliParams(process.argv.slice(2))
-  const { aMidiDevice, vMidiDevice, listPorts, opts } = params
+  const { aMidiDevice, vMidiDevice, listPorts, opts, columns } = params
+  const { inputOnly, outputOnly } = params
 
   if (listPorts) {
     const iPorts = new Set(midiPort.getInputPorts())
@@ -49,16 +50,22 @@ async function main() {
 
   /** @type { OnMessage } */
   function onMessageVirtual(deltaTime, message) {
-    const color = chalk.red.bgBlack
-    logMessage('<-', color, deltaTime, message)
     aPort.sendMessage(message)
+
+    if (outputOnly) return
+
+    const color = chalk.red.bgBlack
+    logMessage('<-', color, deltaTime, message, columns)
   }
 
   /** @type { OnMessage } */
   function onMessageActual(deltaTime, message) {
-    const color = chalk.green.bgBlack
-    logMessage('->', color, deltaTime, message)
     if (vPort) vPort.sendMessage(message)
+
+    if (inputOnly) return
+
+    const color = chalk.green.bgBlack
+    logMessage('->', color, deltaTime, message, columns)
   }
 
   if (vMidiDevice) {
@@ -84,16 +91,16 @@ async function main() {
   }
 }
 
-/** @type { (prefix: string, color: chalk.Chalk, deltaTime: number, message: number[]) => void } */
-function logMessage(prefix, color, deltaTime, message) {
+/** @type { (prefix: string, color: chalk.Chalk, deltaTime: number, message: number[], columns: number) => void } */
+function logMessage(prefix, color, deltaTime, message, columns) {
   const pDeltaTime = printableDeltaTime(deltaTime)
-  const pMessage = printableMessage(message)
+  const pMessage = printableMessage(message, columns)
   console.log(color(`${prefix} ${pDeltaTime} ${pMessage}`))
 }
 
-/** @type { (message: number[]) => string } */
-function printableMessage(message) {
-  const { command, channel } = getCommandChannel(message)
+/** @type { (message: number[], columns: number) => string } */
+function printableMessage(message, columns) {
+  const { command, channel } = getCommandChannel(message, columns)
   return `${formatChannel(channel)} ${command}`
 }
 
@@ -112,9 +119,9 @@ function formatChannel(channel) {
   return `[${pChannel}]`
 }
 
-/** @type { (message: number[]) => { command: string, channel?: number } } */
-function getCommandChannel(message) {
-  const printableMessage = hexer(Buffer.from(message))
+/** @type { (message: number[], columns: number) => { command: string, channel?: number } } */
+function getCommandChannel(message, columns) {
+  const printableMessage = hexer(Buffer.from(message), { cols: columns })
   const [ status, data1 ] = message
   const status1 = (status & 0xF0)
   const status2 = (status & 0x0F)

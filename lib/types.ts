@@ -15,6 +15,15 @@ export interface CliParams {
 
   // indicates the ports should be listed
   listPorts?: boolean
+
+  // number of columns for hex display
+  columns: number
+
+  // print input only
+  inputOnly: boolean
+
+  // print output only
+  outputOnly: boolean
 }
 
 export type OnMessage = (deltaTime: number, message: number[]) => void

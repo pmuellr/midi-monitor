@@ -38,6 +38,12 @@ installation
 changelog
 ================================================================================
 
+version 1.2.2 - 2021-11-10
+
+- add the --32 option to display hex in 32 byte rows instead of 16
+- add the --input-only and --output-only options to limit the messages printed
+  to input or output
+
 version 1.2.1 - 2021-04-11
 
 - made the CLI toggle for sysex, timing and active-sensing boolean options
